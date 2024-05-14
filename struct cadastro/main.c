@@ -35,11 +35,14 @@ typedef struct
 {
     char nome[TAM_NOME];
     double carga_hora;
-    char data_inicio[9];
+    char data_inicio[9]; 
     char data_final[9];
 } Disciplina;
 
-
+typedef struct{
+    char serie[3]; 
+    char periodo[8];
+} Turma;
 
 // FUNÇÕES:
 void cadastrarAluno(Aluno alunos[], int *totalAlunos){
@@ -73,7 +76,11 @@ void cadastrarAluno(Aluno alunos[], int *totalAlunos){
 void exibirAluno(Aluno alunos[], int totalAlunos){
     printf("\nLista de Alunos:\n");
     for(int i = 0; i < totalAlunos; i++){
-        printf("\nCPF: %s\nNome: %s\nTel: %s\nE-mail: %s\nData de nascimento: %s\n", alunos[i].cpf, alunos[i].nome, alunos[i].tel, alunos[i].email, alunos[i].data_nasc);
+        printf("\nCPF: %s\nNome: %s\nTel: %s\nE-mail: %s\nData de nascimento: %c%c/%c%c/%c%c%c%c\n", 
+        alunos[i].cpf, alunos[i].nome, alunos[i].tel, alunos[i].email, 
+        alunos[i].data_nasc[0], alunos[i].data_nasc[1], alunos[i].data_nasc[2], 
+        alunos[i].data_nasc[3], alunos[i].data_nasc[4], alunos[i].data_nasc[5], 
+        alunos[i].data_nasc[6], alunos[i].data_nasc[7], alunos[i].data_nasc[8]);
     }
 }
 
@@ -87,6 +94,7 @@ void cadastrarProf(Professor profs[], int *totalProf){
         setbuf(stdin, NULL);
         scanf("%30[^\n]s", &prof.email_prof);
         printf("Digite o salário: ");
+        setbuf(stdin, NULL);
         scanf("%lf", &prof.sal_prof);
         printf("Digite a formação: ");
         setbuf(stdin, NULL);
@@ -147,6 +155,7 @@ void cadastrarDisc(Disciplina discs[], int *totalDisc){
         setbuf(stdin, NULL);
         scanf("%50[^\n]s", &disc.nome);
         printf("Digite a carga horária: ");
+        setbuf(stdin, NULL);
         scanf("%lf", &disc.carga_hora);
         printf("Digite a data de início [dia/mês/ano]: ");
         setbuf(stdin, NULL);
@@ -167,7 +176,37 @@ void cadastrarDisc(Disciplina discs[], int *totalDisc){
 void exibirDisc(Disciplina discs[], int totalDisc){
     printf("\nLista de Disciplinas:\n");
     for(int i = 0; i < totalDisc; i++){
-        printf("Disciplina: %s\nCarga Horária: %.2lf\nData Início: %s\nData Final: %s\n", discs[i].nome, discs[i].carga_hora, discs[i].data_inicio, discs[i].data_final);
+        printf("\nDisciplina: %s\nCarga Horária: %.0lf hs\nData de Início: %c%c/%c%c/%c%c%c%c\n", 
+        discs[i].nome, discs[i].carga_hora, discs[i].data_inicio[0], discs[i].data_inicio[1], discs[i].data_inicio[2], discs[i].data_inicio[3], 
+        discs[i].data_inicio[4], discs[i].data_inicio[5], discs[i].data_inicio[6], discs[i].data_inicio[7], discs[i].data_inicio[8]);
+        printf("Data Final: %c%c/%c%c/%c%c%c%c\n", discs[i].data_final[0], discs[i].data_final[1], discs[i].data_final[2], discs[i].data_final[3], 
+        discs[i].data_final[4], discs[i].data_final[5], discs[i].data_final[6], discs[i].data_final[7], discs[i].data_final[8]);
+    }
+}
+
+void cadastrarTurma(Turma turmas[], int *totalTurma){
+    if(*totalTurma < TAM_VETOR){
+        Turma turma;
+        printf("\nDigite a série: ");
+        setbuf(stdin, NULL);
+        scanf("%3[^\n]s", &turma.serie);
+        printf("Digite o período: ");
+        setbuf(stdin, NULL);
+        scanf("%8[^\n]s", &turma.periodo);
+
+        turmas[*totalTurma] = turma;
+        (*totalTurma)++;
+
+        printf("Cadastro realizaod com sucesso.\n");
+    }else{
+        printf("Erro: Limite atingido.\n");
+    }
+}
+
+void exibirTurma(Turma turmas[], int totalTurma){
+    printf("\nLista de Turmas: \n");
+    for(int i = 0; i < totalTurma; i++){
+        printf("\nSérie: %s\nPeríodo: %s\n", turmas[i].serie, turmas[i].periodo);
     }
 }
 
