@@ -226,6 +226,7 @@ int main()
 
     int op;
 
+    printf("\n***Bem vindo(a) ao CadEdu***\n");
     do{
         printf("\nMENU\n");
         printf("\n 1. Cadastrar Aluno");
