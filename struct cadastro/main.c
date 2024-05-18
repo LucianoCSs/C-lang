@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #define TAM_NOME 50
 #define TAM_VETOR 100
 
@@ -41,7 +42,7 @@ typedef struct
 
 typedef struct{
     char serie[3]; 
-    char periodo[8];
+    char periodo[2];
 } Turma;
 
 // FUNÇÕES:
@@ -190,14 +191,14 @@ void cadastrarTurma(Turma turmas[], int *totalTurma){
         printf("\nDigite a série: ");
         setbuf(stdin, NULL);
         scanf("%3[^\n]s", &turma.serie);
-        printf("Digite o período: ");
+        printf("Digite o período, [D] p/ Diurno ou [N] p/ Noturno: ");
         setbuf(stdin, NULL);
-        scanf("%8[^\n]s", &turma.periodo);
+        scanf("%2[^\n]s", &turma.periodo);
 
         turmas[*totalTurma] = turma;
         (*totalTurma)++;
 
-        printf("Cadastro realizaod com sucesso.\n");
+        printf("Cadastro realizado com sucesso.\n");
     }else{
         printf("Erro: Limite atingido.\n");
     }
@@ -206,7 +207,7 @@ void cadastrarTurma(Turma turmas[], int *totalTurma){
 void exibirTurma(Turma turmas[], int totalTurma){
     printf("\nLista de Turmas: \n");
     for(int i = 0; i < totalTurma; i++){
-        printf("\nSérie: %s\nPeríodo: %s\n", turmas[i].serie, turmas[i].periodo);
+        printf("\nSérie: %cº%c\nPeríodo: %s\n", turmas[i].serie[0], turmas[i].serie[1], turmas[i].periodo);
     }
 }
 
@@ -224,9 +225,14 @@ int main()
     Disciplina discs[TAM_VETOR];
     int totalDisc = 0;
 
+    Turma turmas[TAM_VETOR];
+    int totalTurma = 0;
+
     int op;
 
-    printf("\n***Bem vindo(a) ao CadEdu***\n");
+    printf("\n--------------------------------\n");
+    printf("*****Bem vindo(a) ao CadEdu*****\n");
+    printf("--------------------------------\n");
     do{
         printf("\nMENU\n");
         printf("\n 1. Cadastrar Aluno");
@@ -236,8 +242,10 @@ int main()
         printf("\n 5. Cadastrar Responsável");
         printf("\n 6. Listar responsáveis");
         printf("\n 7. Cadastrar Disciplina");
-        printf("\n 8. Listar disciplina");
-        printf("\n 9. Sair");
+        printf("\n 8. Listar disciplinas");
+        printf("\n 9. Cadastrar Turma");
+        printf("\n 10. Listar turmas");
+        printf("\n 0. Sair");
         printf("\nEscolha uma opção: ");
         scanf("%d", &op);
 
@@ -265,8 +273,14 @@ int main()
                 break;
             case 8:
                 exibirDisc(discs, totalDisc);
-                break;                        
+                break;
             case 9:
+                cadastrarTurma(turmas, &totalTurma);
+                break;
+            case 10:
+                exibirTurma(turmas, totalTurma);
+                break;                             
+            case 0:
                 printf("\nEncerrando...\n");
                 break;      
             default:
@@ -274,7 +288,7 @@ int main()
                 break;
         }
 
-    }while(op!=9);
+    }while(op!=0);
 
 
 
