@@ -7,9 +7,9 @@ typedef struct{
     double nota;
 }Aluno;
 
-void cadastrar();
-void imprimir();
-void excluir();
+static void cadastrar();
+static void imprimir();
+static void excluir();
 void menu();
 
 #endif
