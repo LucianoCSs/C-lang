@@ -2,7 +2,7 @@
 #include "../include/aluno.h"
 
 
-void cadastrar(){
+static void cadastrar(){
     Aluno aluno;
     FILE* fb = fopen("aluno.bin", "ab");
     if (fb != NULL)
@@ -24,7 +24,7 @@ void cadastrar(){
     fclose(fb);
 }
 
-void imprimir(){
+static void imprimir(){
     Aluno aluno;
     FILE* fb = fopen("aluno.bin", "rb");
     if (fb != NULL)
@@ -41,7 +41,7 @@ void imprimir(){
     fclose(fb);
 }
 
-void excluir(){
+static void excluir(){
     FILE* arquivo = fopen("aluno.bin", "rb");
     FILE* arquivoNovo = fopen("alunoTemp.bin", "ab");
     Aluno aluno;
