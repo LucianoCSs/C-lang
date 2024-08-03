@@ -5,8 +5,7 @@ int main(void)
 {
     Lista* li;
 
-    int op, x, mat;
-    
+    int op, x, mat, pos;
     Aluno a;
 
     do
@@ -16,6 +15,7 @@ int main(void)
         printf("3 - Consultar por matrícula\n");
         printf("4 - Remover um aluno\n");
         printf("5 - Verificar tamanho da lista\n");
+        printf("6 - Consultar por posição\n");
         printf("0 - Sair\n");
         printf("Resposta: ");
         scanf("%d", &op);
@@ -72,7 +72,18 @@ int main(void)
         case 5:
             x = tamanho_lista(li);
             printf("\nTamanho da lista: %d\n", x);
-            break;            
+            break;
+        case 6:
+            printf("\nDigite a posição: ");
+            scanf("%d", &pos);
+            x = consulta_lista_pos(li, pos, &a);
+            if (x == 1)
+            {
+                printf("\nNome: %s\nMatrícula: %d\nNota: %.1f\n", a.nome, a.matricula, a.n1);
+            }else{
+                printf("\nPosição não encontrada!\n");
+            }
+            break;           
         case 0:
             libera_lista(li);
             printf("\nFim do programa.\n");
