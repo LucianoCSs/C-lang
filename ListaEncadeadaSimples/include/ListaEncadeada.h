@@ -18,6 +18,9 @@ Node *Node_create(int val);
 // Inserção no começo da Lista
 void LinkedList_addFirst(LinkedList *L, int val);
 
+// Insere no final da Lista
+void LinkedList_addLast(LinkedList *L, int val);
+
 // Imprime lista
 void LinkedList_print(const LinkedList *L);
 
