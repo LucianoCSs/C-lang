@@ -43,13 +43,13 @@ void LinkedList_addFirst(LinkedList *L, int val){
 
 void LinkedList_addLast(LinkedList *L, int val){
     Node *q = Node_create(val);
-    // caso a lista está vazia
+    // caso a lista estiver vazia
     if (L->begin == NULL)
     {
         L->begin = q;
     }else{ // caso possua elementos
         Node *p = L->begin;
-        // enquanot p não for o último nó
+        // enquanto p não for o último nó
         while (p->next != NULL) 
         {
             p = p->next;
@@ -76,6 +76,41 @@ void LinkedList_print(const LinkedList *L){
         p = p->next;
     }
     
+}
+
+void menu(){
+    int op, valor;
+    LinkedList *L = LinkedList_create();
+
+    do
+    {
+        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n0 - Sair\n");
+        printf("Opção: ");
+        scanf("%d", &op);
+        switch (op)
+        {
+        case 1:
+            printf("\nDigite um valor: ");
+            scanf("%d", &valor);
+            LinkedList_addFirst(L, valor);
+            break;
+        case 2:
+            printf("\nImprimindo lista...\n");
+            LinkedList_print(L);
+            break;
+        case 3:
+            printf("\nDigite um valor: ");
+            scanf("%d", &valor);
+            LinkedList_addLast(L, valor);
+            break;    
+        case 0:
+            printf("\nFim do programa!\n");
+            break;        
+        default:
+            printf("\nOpção inválida!\n");
+            break;
+        }
+    } while (op!=0);
 }
 
 

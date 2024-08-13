@@ -24,4 +24,7 @@ void LinkedList_addLast(LinkedList *L, int val);
 // Imprime lista
 void LinkedList_print(const LinkedList *L);
 
+// Menu do programa
+void menu();
+
 #endif
