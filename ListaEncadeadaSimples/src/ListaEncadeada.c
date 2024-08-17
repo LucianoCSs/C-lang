@@ -12,6 +12,7 @@ typedef struct _node
 // Lista
 typedef struct _linked_list{
     Node *begin;
+    Node *end;
     int tam;
 } LinkedList;
 
@@ -19,6 +20,7 @@ typedef struct _linked_list{
 LinkedList *LinkedList_create(){
     LinkedList *L = (LinkedList*) calloc(1, sizeof(LinkedList)); // por padrão calloc inicializa tudo em 0
     L->begin = NULL;
+    L->end = NULL;
     L->tam = 0;
     return L;
 }
@@ -65,6 +67,24 @@ void LinkedList_addLast(LinkedList *L, int val){
     printf("Tamanho da lista: %d\n", L->tam);
 }
 
+// Inserção no final MELHORADA
+void LinkedList_addLast2(LinkedList *L, int val){
+    Node *q = Node_create(val);
+
+    // se a lista estiver vazia
+    if (L->begin == NULL)
+    {
+        L->begin = q;
+        L->end = q;
+    }else{ // caso já haja elementos
+        L->end->next = q; // ponteiro de end aponta para o próximo do último elemento
+        L->end = L->end->next;
+    }
+    L->tam++;
+    printf("\nAdicionado no final com sucesso!\n");
+    printf("Tamanho da lista: %d\n", L->tam);
+}
+
 void LinkedList_print(const LinkedList *L){
     Node *p = L->begin; // apenas referencia (não aloca dinamicamente)
 
@@ -84,13 +104,15 @@ void menu(){
 
     do
     {
-        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n0 - Sair\n");
+        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n4 - Inserir no final da lista 2 (MELHORADA)\n0 - Sair\n");
         printf("Opção: ");
+        setbuf(stdin, NULL);
         scanf("%d", &op);
         switch (op)
         {
         case 1:
             printf("\nDigite um valor: ");
+            setbuf(stdin, NULL);
             scanf("%d", &valor);
             LinkedList_addFirst(L, valor);
             break;
@@ -99,9 +121,15 @@ void menu(){
             LinkedList_print(L);
             break;
         case 3:
-            printf("\nDigite um valor: ");
+            /*printf("\nDigite um valor: ");
             scanf("%d", &valor);
-            LinkedList_addLast(L, valor);
+            LinkedList_addLast(L, valor);*/
+            break;
+        case 4:
+            printf("\nDigite um valor: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &valor);
+            LinkedList_addLast2(L, valor);
             break;    
         case 0:
             printf("\nFim do programa!\n");

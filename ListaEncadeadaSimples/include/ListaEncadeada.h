@@ -21,6 +21,9 @@ void LinkedList_addFirst(LinkedList *L, int val);
 // Insere no final da Lista
 void LinkedList_addLast(LinkedList *L, int val);
 
+// Inserção no final da lista MELHORADA
+void LinkedList_addLast2(LinkedList *L, int val);
+
 // Imprime lista
 void LinkedList_print(const LinkedList *L);
 
