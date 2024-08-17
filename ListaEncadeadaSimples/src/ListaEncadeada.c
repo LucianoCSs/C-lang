@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "../include/ListaEncadeada.h"
 
 // Nó
@@ -34,6 +35,10 @@ Node *Node_create(int val){
     return novo;
 }
 
+bool LinkedList_isEmpty(const LinkedList *L){
+    return (L->begin == NULL && L->end == NULL);
+}
+
 void LinkedList_addFirst(LinkedList *L, int val){
     Node *p = Node_create(val);
     p->next = L->begin;
@@ -43,10 +48,24 @@ void LinkedList_addFirst(LinkedList *L, int val){
     printf("Tamanho da lista: %d\n", L->tam);
 }
 
+void LinkedList_addFirst2(LinkedList *L, int val){
+    Node *p = Node_create(val);
+    p->next = L->begin;
+
+    if (LinkedList_isEmpty(L))
+    {
+        L->end = p;
+    }
+    L->begin = p;
+    L->tam++;
+    printf("\nAdicionado no início com sucesso!\n");
+    printf("Tamanho da lista: %d\n", L->tam);
+}
+
 void LinkedList_addLast(LinkedList *L, int val){
     Node *q = Node_create(val);
     // caso a lista estiver vazia
-    if (L->begin == NULL)
+    if (LinkedList_isEmpty(L))
     {
         L->begin = q;
     }else{ // caso possua elementos
@@ -72,7 +91,7 @@ void LinkedList_addLast2(LinkedList *L, int val){
     Node *q = Node_create(val);
 
     // se a lista estiver vazia
-    if (L->begin == NULL)
+    if (LinkedList_isEmpty(L))
     {
         L->begin = q;
         L->end = q;
@@ -104,7 +123,7 @@ void menu(){
 
     do
     {
-        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n4 - Inserir no final da lista 2 (MELHORADA)\n0 - Sair\n");
+        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n0 - Sair\n");
         printf("Opção: ");
         setbuf(stdin, NULL);
         scanf("%d", &op);
@@ -114,23 +133,17 @@ void menu(){
             printf("\nDigite um valor: ");
             setbuf(stdin, NULL);
             scanf("%d", &valor);
-            LinkedList_addFirst(L, valor);
+            LinkedList_addFirst2(L, valor);
             break;
         case 2:
             printf("\nImprimindo lista...\n");
             LinkedList_print(L);
             break;
         case 3:
-            /*printf("\nDigite um valor: ");
-            scanf("%d", &valor);
-            LinkedList_addLast(L, valor);*/
-            break;
-        case 4:
             printf("\nDigite um valor: ");
-            setbuf(stdin, NULL);
             scanf("%d", &valor);
             LinkedList_addLast2(L, valor);
-            break;    
+            break; 
         case 0:
             printf("\nFim do programa!\n");
             break;        
