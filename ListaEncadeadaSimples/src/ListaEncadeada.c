@@ -48,6 +48,7 @@ void LinkedList_addFirst(LinkedList *L, int val){
     printf("Tamanho da lista: %d\n", L->tam);
 }
 
+// Inserção no início MELHORADA
 void LinkedList_addFirst2(LinkedList *L, int val){
     Node *p = Node_create(val);
     p->next = L->begin;
@@ -106,7 +107,10 @@ void LinkedList_addLast2(LinkedList *L, int val){
 
 void LinkedList_print(const LinkedList *L){
     Node *p = L->begin; // apenas referencia (não aloca dinamicamente)
-
+    if (LinkedList_isEmpty(L))
+    {
+        printf("\nLista vazia!\n");
+    }
     // enquanto p não chegar ao fim da lista, isto é,
     // enquanto p estiver apontando para um nó da lista
     while (p != NULL)
@@ -114,7 +118,29 @@ void LinkedList_print(const LinkedList *L){
         printf("%d\n", p->val);
         p = p->next;
     }
-    
+}
+
+void LinkedList_remove(LinkedList *L, int val){
+    if (!LinkedList_isEmpty(L)) // se NÃO estiver vazia
+    {
+        // caso 1: elemento está na cabeça da lista
+        if (L->begin->val == val)
+        {
+            Node *pos = L->begin;
+            L->begin = L->begin->next;
+            // L->begin = pos->next; (tbm funciona)
+
+            // se a lista possui apenas um elemento
+            if (L->end == pos)
+            {
+                L->end = NULL;
+            }
+            free(pos); // desaloca
+        }
+        printf("\nRemovido com sucesso!\n");
+    }else{
+        printf("\nLista vazia!\n");
+    }
 }
 
 void menu(){
@@ -123,7 +149,7 @@ void menu(){
 
     do
     {
-        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n0 - Sair\n");
+        printf("\n1 - Inserir no início da lista\n2 - Imprimir lista\n3 - Inserir no final da lista\n4 - Remover da cabeça da lista\n0 - Sair\n");
         printf("Opção: ");
         setbuf(stdin, NULL);
         scanf("%d", &op);
@@ -141,9 +167,16 @@ void menu(){
             break;
         case 3:
             printf("\nDigite um valor: ");
+            setbuf(stdin, NULL);
             scanf("%d", &valor);
             LinkedList_addLast2(L, valor);
-            break; 
+            break;
+        case 4:
+            printf("\nDigite o valor a ser removido: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &valor);
+            LinkedList_remove(L, valor);
+            break;    
         case 0:
             printf("\nFim do programa!\n");
             break;        

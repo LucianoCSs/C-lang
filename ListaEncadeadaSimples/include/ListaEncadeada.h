@@ -35,6 +35,9 @@ void LinkedList_addLast2(LinkedList *L, int val);
 // Imprime lista
 void LinkedList_print(const LinkedList *L);
 
+// Remove o primeiro nó encontrado que possua o valor 
+void LinkedList_remove(LinkedList *L, int val);
+
 // Menu do programa
 void menu();
 
