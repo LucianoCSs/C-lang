@@ -136,11 +136,36 @@ void LinkedList_remove(LinkedList *L, int val){
                 L->end = NULL;
             }
             free(pos); // desaloca
+        }else{
+            // caso 2: elemento está no meio da lista
+            Node *prev = L->begin; // nó anterior ao segundo (primeiro)
+            Node *pos = L->begin->next; // segundo elemento
+            /*
+            enquanto a lista ainda tiver elementos
+            para percorrer/checar e o valor do nó apontado
+            pelo ponteiro pos for diferente do valor desejado,
+            avance os ponteiros auxiliares (prev e pos)
+            para os próximos nós da lista
+            */
+            while (pos != NULL && pos->val != val)
+            {
+                prev = prev->next;
+                // prev = pos;
+                pos = pos->next;
+            }
+            // um nó de valor val for encontrado e é apontado pelo ponteiro pos
+            if (pos != NULL)
+            {
+                prev->next = pos->next;
+                free(pos);
+            }
         }
-        printf("\nRemovido com sucesso!\n");
     }else{
-        printf("\nLista vazia!\n");
+        printf("\nLista está vazia!\n");
     }
+    L->tam--;
+    printf("\nRemovido com sucesso!\n");
+    printf("Tamanho da lista: %d\n", L->tam);
 }
 
 void menu(){
